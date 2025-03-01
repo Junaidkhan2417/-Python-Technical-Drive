@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+</head>
+<body>
+    <h2>Employee Management</h2>
+
+    <!-- Insert Form -->
+    <form action="/insert" method="POST">
+        <input type="text" name="first_name" placeholder="First Name" required>
+        <input type="text" name="last_name" placeholder="Last Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="number" name="salary" placeholder="Salary" required>
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <!-- Employee List -->
+    <h3>Employees</h3>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Salary</th>
+            <th>Actions</th>
+        </tr>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp[0] }}</td>
+            <td>{{ emp[1] }}</td>
+            <td>{{ emp[2] }}</td>
+            <td>{{ emp[3] }}</td>
+            <td>{{ emp[4] }}</td>
+            <td>
+                <!-- Update Form -->
+                <form action="/update" method="POST" style="display:inline;">
+                    <input type="hidden" name="id" value="{{ emp[0] }}">
+                    <input type="text" name="first_name" value="{{ emp[1] }}">
+                    <input type="text" name="last_name" value="{{ emp[2] }}">
+                    <input type="email" name="email" value="{{ emp[3] }}">
+                    <input type="number" name="salary" value="{{ emp[4] }}">
+                    <button type="submit">Update</button>
+                </form>
+                
+                <!-- Delete Button -->
+                <a href="/delete/{{ emp[0] }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
